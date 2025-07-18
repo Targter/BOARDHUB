@@ -33,6 +33,7 @@ interface DashboardBoardsProps {
 }
 
 const DashboardBoards = ({ initialBoards, error }: DashboardBoardsProps) => {
+  console.log("initialBOard:", initialBoards);
   const router = useRouter();
   const [boards, setBoards] = useState<boardType[]>(initialBoards);
   const [loading, setLoading] = useState(false);

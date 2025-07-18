@@ -102,14 +102,14 @@ export const getAllBoards = async (includePublic: boolean = false) => {
     
     const query = includePublic 
       ? {
-          $or: [  // Use $or instead of $and
-            { userId: session?.user?.id },  // User's own boards (private or public)
-            { visibility: 'public' }        // Plus all public boards from others
-          ]
+          $or: [  
+            { userId: session?.user?.id },
+            { visibility: 'public' }   ]
         }
-      : { userId: session?.user?.id };  // Just user's own boards when includePublic is false
+      : { userId: session?.user?.id }; 
 
-    const data = await Board.find(query).sort({ createdAt: -1 });
+    const data = await Board.find(query).sort({ createdAt: -1 }).populate('userId', 'name email image');
+
 
     return {
       data: data.map(serializeBoard).filter((board): board is NonNullable<typeof board> => board !== null),

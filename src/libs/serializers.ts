@@ -39,7 +39,13 @@ export const serializeBoard = (board: any) => {
     title: board.title || '',
     backgroundColor: board.backgroundColor || '#3b82f6',
     visibility: board.visibility || 'private',
-    userId: board.userId?.toString() || '',
+    // userId: board.userId?.toString() || '',
+    owner: {
+      id: board.userId._id.toString(),
+      name: board.userId.name,
+      email: board.userId.email,
+      image: board.userId.image
+    },
     lists: board.lists?.map((id: any) => id.toString()) || [],
     createdAt: board.createdAt ? new Date(board.createdAt) : new Date(),
     updatedAt: board.updatedAt ? new Date(board.updatedAt) : new Date(),
